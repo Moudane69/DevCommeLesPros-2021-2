@@ -54,9 +54,55 @@ char* chiffre_Cesar( char* clair,char const cle)         // Texte en clair qui s
 
 }
 
-char* dechiffre_Cesar(
-    char* chiffre,      // Texte chiffré qui sera modifié.
-    char const cle)
-{
-    return NULL;
+char cesar(char caractere, int decalage, char debut, char fin){
+    //fixons le décalage du nouveau caractère depuis le début de l'alphabet
+    
+    int a= (caractere-debut+decalage );
+    int b=(fin-debut+1 ) ; 
+    int nouv_decalage= a%b;
+    //nous devrons commencer de la fin de l'alphabet  si le nouveau décalage est négatif
+       
+        if (nouv_decalage < 0)
+        {
+            return fin + 1 + nouv_decalage;
+
+        }else{
+            
+            return debut + nouv_decalage ;
+        }
+    
 }
+
+char* dechiffre_Cesar(char* chiffre, char const cle)     // Texte chiffré qui sera modifié.
+{
+                    int i = 0 ;                 
+                    size_t taille = strlen(chiffre);
+                    char * resultat =(char *)malloc(taille+1);
+                    int decalage = cle-'a';
+                    
+                    for( i=0 ; i<taille ; i++){
+
+
+                        if(chiffre[i] <='Z' && chiffre[i] >='A'){
+
+                                resultat[i] = cesar(chiffre[i], (-1)*decalage,'A','Z');
+                                
+
+                        }else if(chiffre[i] <= 'z' && chiffre[i] >= 'a'){
+                        
+                                resultat[i] = cesar(chiffre[i], (-1)*decalage, 'a', 'z');
+                            
+
+                                
+                        }else{
+                        
+                                resultat[i] = chiffre[i];
+                        } 
+                    }
+
+
+                    resultat[taille]='\0';
+        return resultat;
+   
+}
+
