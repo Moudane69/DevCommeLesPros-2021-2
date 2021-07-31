@@ -53,13 +53,57 @@ char* chiffre_Vigenere( char* clair,char const* cle){
     }
 
 
-char* dechiffre_Vigenere(
-    char* chiffre,      // Texte chiffré qui sera modifié.
-    char const* cle)
-{
-    return NULL;
+
+
+
+char d_vigenere(char caractere, int decalage, char debut, char fin){
+                //fixons le décalage du nouveau caractère depuis le début de l'alphabet
+    
+        int a= (caractere-debut+decalage );
+        int b=(fin-debut+1 ) ; 
+        int nouv_decalage= a%b;
+                //nous devrons commencer de la fin de l'alphabet  si le nouveau décalage est négatif
+        
+            if (nouv_decalage < 0)
+            {
+                return fin + 1 + nouv_decalage;
+
+            }else{
+                
+                return debut + nouv_decalage ;
+            }
+    
 }
 
+
+ // Texte chiffré qui sera modifié.
+char* dechiffre_Vigenere(char* chiffre,char const* cle)
+{
+            size_t taille_chiffre = strlen(chiffre);
+            size_t taille_cle = strlen(cle);
+            int * decalage = (int*)malloc(taille_cle*sizeof(int));
+            char* resultat = (char*)malloc(taille_chiffre+1);
+            int compteur;
+                for(int i=0; i<taille_cle; i++) {
+                        decalage[i] = cle[i] - 'a';
+                  }
+
+            compteur = 0;
+                for(int i=0; i<taille_chiffre; i++) {
+                        if(chiffre[i] <=  'Z' && chiffre[i] >= 'A'){
+                        resultat[i] = d_vigenere(chiffre[i], -decalage[compteur%taille_cle], 'A', 'Z');
+                        compteur++;
+                }
+                else if(chiffre[i] <=  'z' && chiffre[i] >= 'a'){
+                        resultat[i] = d_vigenere(chiffre[i], -decalage[compteur%taille_cle], 'a', 'z');
+                        compteur++;
+                }
+                else {  resultat[i] = chiffre[i];}
+            }
+            resultat[taille_chiffre] = '\0'; // caractere de la fin du chaine 
+            return resultat;
+
+}
 void chiffre_Vigenere_flux_texte(
     FILE* chiffre,      // Flux de sortie.
     FILE* clair,        // Flux d'entrée.
