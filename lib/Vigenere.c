@@ -1,7 +1,8 @@
 #include "Vigenere.h"
-
+#include <string.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 // Texte en clair qui sera modifié.
 char* chiffre_Vigenere( char* clair,char const* cle){
         int a ;
