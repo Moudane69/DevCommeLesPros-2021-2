@@ -34,9 +34,9 @@ char* chiffre_ROT13(char* clair){    // Texte en clair qui sera modifié.
 
                                 }else if(clair[i] <= 'z' && clair[i] >= 'a'){
                         
-                                    a = (clair[i] - 'a' + 13 );
+                                    a = (clair[i] - 'a' + 13 );// dans la table ascii les lettre Majuscules viennent avant les  minusculs
                                     b = 'z' - 'a' + 1; // nombre totale des alphabets;
-                                    decalage = a % b ; //congruence, pour voir si il y a suffisealent de place 
+                                    decalage = a % b ; //congruence, pour voir si il y a suffiseamment de place 
                                     if (decalage < 0)
                                     {
                                         resultat[i] ='z'+decalage+1 ;
