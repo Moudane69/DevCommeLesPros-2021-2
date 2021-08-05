@@ -17,13 +17,13 @@ char* chiffre_Vigenere( char* clair,char const* cle){
     
     
             for(int i=0; i<taille_cle; i++) {
-                decalage[i] = cle[i] - 'a';
+                decalage[i] = cle[i] - 'a';// dans la table ascii les lettre Majuscules viennent avant les  minusculs
             }
 
             compteur = 0;
             for(int i=0; i<taille_clair; i++) {
                 if(clair[i] <=  'Z' && clair[i] >= 'A'){
-                        a = (clair[i] - 'A' + decalage[compteur%taille_cle] );
+                        a = (clair[i] - 'A' + decalage[compteur%taille_cle] );// (compteur%cle) va augmenter jusqu'à (taille_cle-1) et revenir à zero d'une maniere periodique comme on veut !
                         b = 'Z' - 'A' + 1 ;// nombre totale des alphabets;
                         c = a % b ; // pour voir si il y'a suffisemment de places .
                         if (decalage[compteur%taille_cle] < 0)
@@ -61,7 +61,7 @@ char d_vigenere(char caractere, int decalage, char debut, char fin){
                 //fixons le décalage du nouveau caractère depuis le début de l'alphabet
     
         int a= (caractere-debut+decalage );
-        int b=(fin-debut+1 ) ; 
+        int b=(fin-debut+1 ) ; // nombre de caractere renseignées 
         int nouv_decalage= a%b;
                 //nous devrons commencer de la fin de l'alphabet  si le nouveau décalage est négatif
         
@@ -86,7 +86,7 @@ char* dechiffre_Vigenere(char* chiffre,char const* cle)
             char* resultat = (char*)malloc(taille_chiffre+1);
             int compteur;
                 for(int i=0; i<taille_cle; i++) {
-                        decalage[i] = cle[i] - 'a';
+                        decalage[i] = cle[i] - 'a';// dans la table ascii les lettre Majuscules viennent avant les  minusculs
                   }
 
             compteur = 0;
